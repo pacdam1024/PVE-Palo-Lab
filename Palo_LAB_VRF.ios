@@ -1,0 +1,491 @@
+! =================================================================
+! Cisco 2811 Router Configuration
+! VRF-Lite with NAT for 22 Students, each with two subnets
+! =================================================================
+
+!
+! --- Step 1: Enable CEF (Required for VRF-Lite) ---
+!
+ip cef
+
+!
+! --- Step 2: Define VRFs for each of the 22 Student Labs ---
+!
+ip vrf STUDENT_01
+ rd 1:1
+!
+ip vrf STUDENT_02
+ rd 2:2
+!
+ip vrf STUDENT_03
+ rd 3:3
+!
+ip vrf STUDENT_04
+ rd 4:4
+!
+ip vrf STUDENT_05
+ rd 5:5
+!
+ip vrf STUDENT_06
+ rd 6:6
+!
+ip vrf STUDENT_07
+ rd 7:7
+!
+ip vrf STUDENT_08
+ rd 8:8
+!
+ip vrf STUDENT_09
+ rd 9:9
+!
+ip vrf STUDENT_10
+ rd 10:10
+!
+ip vrf STUDENT_11
+ rd 11:11
+!
+ip vrf STUDENT_12
+ rd 12:12
+!
+ip vrf STUDENT_13
+ rd 13:13
+!
+ip vrf STUDENT_14
+ rd 14:14
+!
+ip vrf STUDENT_15
+ rd 15:15
+!
+ip vrf STUDENT_16
+ rd 16:16
+!
+ip vrf STUDENT_17
+ rd 17:17
+!
+ip vrf STUDENT_18
+ rd 18:18
+!
+ip vrf STUDENT_19
+ rd 19:19
+!
+ip vrf STUDENT_20
+ rd 20:20
+!
+ip vrf STUDENT_21
+ rd 21:21
+!
+ip vrf STUDENT_22
+ rd 22:22
+!
+
+!
+! --- Step 3: Configure the "Outside" Interface (Instructor's Network) ---
+!
+interface GigabitEthernet0/1
+ description ** Link to Instructor's Network (Global VRF) **
+ ip address 192.168.137.1 255.255.255.0
+ ip nat outside
+ speed auto
+ duplex auto
+!
+
+!
+! --- Step 4: Configure Sub-interfaces for each Student VLAN ---
+!
+interface FastEthernet0/0
+ description ** Trunk Port from L3 Switch **
+ no ip address
+ speed auto
+ duplex auto
+!
+! --- Student 1 ---
+interface FastEthernet0/0.1391
+ description ** Gateway 1 for Student Lab 01 **
+ encapsulation dot1Q 1391
+ ip vrf forwarding STUDENT_01
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1413
+ description ** Gateway 2 for Student Lab 01 **
+ encapsulation dot1Q 1413
+ ip vrf forwarding STUDENT_01
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 2 ---
+interface FastEthernet0/0.1392
+ description ** Gateway 1 for Student Lab 02 **
+ encapsulation dot1Q 1392
+ ip vrf forwarding STUDENT_02
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1414
+ description ** Gateway 2 for Student Lab 02 **
+ encapsulation dot1Q 1414
+ ip vrf forwarding STUDENT_02
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 3 ---
+interface FastEthernet0/0.1393
+ description ** Gateway 1 for Student Lab 03 **
+ encapsulation dot1Q 1393
+ ip vrf forwarding STUDENT_03
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1415
+ description ** Gateway 2 for Student Lab 03 **
+ encapsulation dot1Q 1415
+ ip vrf forwarding STUDENT_03
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 4 ---
+interface FastEthernet0/0.1394
+ description ** Gateway 1 for Student Lab 04 **
+ encapsulation dot1Q 1394
+ ip vrf forwarding STUDENT_04
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1416
+ description ** Gateway 2 for Student Lab 04 **
+ encapsulation dot1Q 1416
+ ip vrf forwarding STUDENT_04
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 5 ---
+interface FastEthernet0/0.1395
+ description ** Gateway 1 for Student Lab 05 **
+ encapsulation dot1Q 1395
+ ip vrf forwarding STUDENT_05
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1417
+ description ** Gateway 2 for Student Lab 05 **
+ encapsulation dot1Q 1417
+ ip vrf forwarding STUDENT_05
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 6 ---
+interface FastEthernet0/0.1396
+ description ** Gateway 1 for Student Lab 06 **
+ encapsulation dot1Q 1396
+ ip vrf forwarding STUDENT_06
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1418
+ description ** Gateway 2 for Student Lab 06 **
+ encapsulation dot1Q 1418
+ ip vrf forwarding STUDENT_06
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 7 ---
+interface FastEthernet0/0.1397
+ description ** Gateway 1 for Student Lab 07 **
+ encapsulation dot1Q 1397
+ ip vrf forwarding STUDENT_07
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1419
+ description ** Gateway 2 for Student Lab 07 **
+ encapsulation dot1Q 1419
+ ip vrf forwarding STUDENT_07
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 8 ---
+interface FastEthernet0/0.1398
+ description ** Gateway 1 for Student Lab 08 **
+ encapsulation dot1Q 1398
+ ip vrf forwarding STUDENT_08
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1420
+ description ** Gateway 2 for Student Lab 08 **
+ encapsulation dot1Q 1420
+ ip vrf forwarding STUDENT_08
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 9 ---
+interface FastEthernet0/0.1399
+ description ** Gateway 1 for Student Lab 09 **
+ encapsulation dot1Q 1399
+ ip vrf forwarding STUDENT_09
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1421
+ description ** Gateway 2 for Student Lab 09 **
+ encapsulation dot1Q 1421
+ ip vrf forwarding STUDENT_09
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 10 ---
+interface FastEthernet0/0.1400
+ description ** Gateway 1 for Student Lab 10 **
+ encapsulation dot1Q 1400
+ ip vrf forwarding STUDENT_10
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1422
+ description ** Gateway 2 for Student Lab 10 **
+ encapsulation dot1Q 1422
+ ip vrf forwarding STUDENT_10
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 11 ---
+interface FastEthernet0/0.1401
+ description ** Gateway 1 for Student Lab 11 **
+ encapsulation dot1Q 1401
+ ip vrf forwarding STUDENT_11
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1423
+ description ** Gateway 2 for Student Lab 11 **
+ encapsulation dot1Q 1423
+ ip vrf forwarding STUDENT_11
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 12 ---
+interface FastEthernet0/0.1402
+ description ** Gateway 1 for Student Lab 12 **
+ encapsulation dot1Q 1402
+ ip vrf forwarding STUDENT_12
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1424
+ description ** Gateway 2 for Student Lab 12 **
+ encapsulation dot1Q 1424
+ ip vrf forwarding STUDENT_12
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 13 ---
+interface FastEthernet0/0.1403
+ description ** Gateway 1 for Student Lab 13 **
+ encapsulation dot1Q 1403
+ ip vrf forwarding STUDENT_13
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1425
+ description ** Gateway 2 for Student Lab 13 **
+ encapsulation dot1Q 1425
+ ip vrf forwarding STUDENT_13
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 14 ---
+interface FastEthernet0/0.1404
+ description ** Gateway 1 for Student Lab 14 **
+ encapsulation dot1Q 1404
+ ip vrf forwarding STUDENT_14
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1426
+ description ** Gateway 2 for Student Lab 14 **
+ encapsulation dot1Q 1426
+ ip vrf forwarding STUDENT_14
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 15 ---
+interface FastEthernet0/0.1405
+ description ** Gateway 1 for Student Lab 15 **
+ encapsulation dot1Q 1405
+ ip vrf forwarding STUDENT_15
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1427
+ description ** Gateway 2 for Student Lab 15 **
+ encapsulation dot1Q 1427
+ ip vrf forwarding STUDENT_15
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 16 ---
+interface FastEthernet0/0.1406
+ description ** Gateway 1 for Student Lab 16 **
+ encapsulation dot1Q 1406
+ ip vrf forwarding STUDENT_16
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1428
+ description ** Gateway 2 for Student Lab 16 **
+ encapsulation dot1Q 1428
+ ip vrf forwarding STUDENT_16
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 17 ---
+interface FastEthernet0/0.1407
+ description ** Gateway 1 for Student Lab 17 **
+ encapsulation dot1Q 1407
+ ip vrf forwarding STUDENT_17
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1429
+ description ** Gateway 2 for Student Lab 17 **
+ encapsulation dot1Q 1429
+ ip vrf forwarding STUDENT_17
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 18 ---
+interface FastEthernet0/0.1408
+ description ** Gateway 1 for Student Lab 18 **
+ encapsulation dot1Q 1408
+ ip vrf forwarding STUDENT_18
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1430
+ description ** Gateway 2 for Student Lab 18 **
+ encapsulation dot1Q 1430
+ ip vrf forwarding STUDENT_18
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 19 ---
+interface FastEthernet0/0.1409
+ description ** Gateway 1 for Student Lab 19 **
+ encapsulation dot1Q 1409
+ ip vrf forwarding STUDENT_19
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1431
+ description ** Gateway 2 for Student Lab 19 **
+ encapsulation dot1Q 1431
+ ip vrf forwarding STUDENT_19
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 20 ---
+interface FastEthernet0/0.1410
+ description ** Gateway 1 for Student Lab 20 **
+ encapsulation dot1Q 1410
+ ip vrf forwarding STUDENT_20
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1432
+ description ** Gateway 2 for Student Lab 20 **
+ encapsulation dot1Q 1432
+ ip vrf forwarding STUDENT_20
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 21 ---
+interface FastEthernet0/0.1411
+ description ** Gateway 1 for Student Lab 21 **
+ encapsulation dot1Q 1411
+ ip vrf forwarding STUDENT_21
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1433
+ description ** Gateway 2 for Student Lab 21 **
+ encapsulation dot1Q 1433
+ ip vrf forwarding STUDENT_21
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+! --- Student 22 ---
+interface FastEthernet0/0.1412
+ description ** Gateway 1 for Student Lab 22 **
+ encapsulation dot1Q 1412
+ ip vrf forwarding STUDENT_22
+ ip address 192.168.1.1 255.255.255.0
+ ip nat inside
+!
+interface FastEthernet0/0.1434
+ description ** Gateway 2 for Student Lab 22 **
+ encapsulation dot1Q 1434
+ ip vrf forwarding STUDENT_22
+ ip address 203.0.113.1 255.255.255.0
+ ip nat inside
+!
+
+!
+! --- Step 5: Configure NAT (Network Address Translation) ---
+! Note: The 203.0.113.0/24 subnet is now included in the ACL
+!
+ip access-list standard STUDENT_NET_ACL
+ permit 192.168.1.0 0.0.0.255
+ permit 203.0.113.0 0.0.0.255
+!
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_01 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_02 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_03 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_04 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_05 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_06 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_07 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_08 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_09 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_10 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_11 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_12 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_13 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_14 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_15 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_16 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_17 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_18 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_19 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_20 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_21 overload
+ip nat inside source list STUDENT_NET_ACL interface GigabitEthernet0/1 vrf STUDENT_22 overload
+!
+
+!
+! --- Step 6: Configure Routing ---
+!
+ip route vrf STUDENT_01 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_02 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_03 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_04 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_05 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_06 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_07 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_08 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_09 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_10 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_11 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_12 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_13 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_14 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_15 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_16 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_17 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_18 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_19 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_20 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_21 0.0.0.0 0.0.0.0 8.8.8.8
+ip route vrf STUDENT_22 0.0.0.0 0.0.0.0 8.8.8.8
+!
+! --- END OF CONFIGURATION ---
+!

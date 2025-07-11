@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# --- Configuration ---
+ROLE="PVEAdmin"
+START_NUM=1
+END_NUM=20
+
+# --- Logic ---
+echo "--- Applying PVEAdmin role to student VMs ---"
+
+# Loop from student 1 to 20
+for i in $(seq $START_NUM $END_NUM); do
+  # Construct the username for the student
+  USERNAME="student${i}@pve"
+
+  # Calculate the two VMIDs for the current student
+  VMID1=$((1390 + i))
+  VMID2=$((1456 + i))
+
+  # Define the ACL paths for the VMs
+  PATH1="/vms/${VMID1}"
+  PATH2="/vms/${VMID2}"
+
+  echo "Applying permissions for $USERNAME on VM $VMID1 and VM $VMID2..."
+
+  # Grant the user the specified role on the first VM's path
+  pveum acl modify "$PATH1" -user "$USERNAME" -role "$ROLE"
+
+  # Grant the user the specified role on the second VM's path
+  pveum acl modify "$PATH2" -user "$USERNAME" -role "$ROLE"
+done
+
+echo "--- Permission script finished. ---"
